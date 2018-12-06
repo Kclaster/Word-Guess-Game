@@ -1,12 +1,24 @@
 
-//Pick a Random Word
-var wordChoice = ['Narnia', 'Hogwarts', 'Westeros', 'Redwall', 'Hyrule', 'Middle Earth'];
-var randomWord = wordChoice[Math.floor(Math.random()*wordChoice.length)];
-var guessLeft = randomWord.length;
-var  cycle = 0; 
-var guessedLetters = [];
-console.log(randomWord);
+//Declare and Define global counters
+var count, wordChoice, randomWord, guessLeft, cycle, guessedLetters, wins, losses;
+cycle = 0;
+wins = 0;
+losses = 0;
 
+//Function for start of a New Game
+var initialSetup = function() {
+    count = [];
+    wordChoice = ['Narnia', 'Hogwarts', 'Westeros', 'Redwall', 'Hyrule', 'Middle Earth'];
+    randomWord = wordChoice[Math.floor(Math.random()*wordChoice.length)];
+    guessLeft = randomWord.length;
+    guessedLetters = [];
+    for (i = 0; i < randomWord.length; i++) {
+        count.push('-');   
+    }
+    return count;
+}
+
+//Boolian function stating if user guessed correctly
 var guessIncluded = function(guess) {
     if (randomWord.includes(guess)) {
         return true;
@@ -15,15 +27,7 @@ var guessIncluded = function(guess) {
     } 
 }
 
-var initialSetup = function() {
-    count = [];
-    for (i = 0; i < randomWord.length; i++) {
-        count.push('-');
-        
-    }
-    return count;
-}
-
+//Update UI to display correct guess
 var correctGuess = function(guess, count) {
     for (i = 0; i < randomWord.length; i++) {
         if (randomWord[i] == guess) {
@@ -33,11 +37,10 @@ var correctGuess = function(guess, count) {
     return count;
 }
 
-
-
-//Event Listener
+//Function for All during game items
 document.onkeyup = function (event) {
     var userchoice = event.key;
+
     //Correct Initial Display
     cycle ++
     if (cycle <= 1) {
@@ -45,23 +48,39 @@ document.onkeyup = function (event) {
     stringInit = count.join('');
     document.getElementById("hyphens").innerHTML = stringInit;
     document.getElementById("guess-counter").innerHTML = guessLeft;
+    document.getElementById("changeMe").textContent = "Current Word";
+    document.getElementById("guessedLetters").innerHTML = guessedLetters;
 
     //Update UI on Guess
     } else {
         guessedLetters.push(" " + userchoice + " ");
         document.getElementById("guessedLetters").innerHTML = guessedLetters;
+        //Correct Guess
         if (guessIncluded(userchoice)){
             correctGuess(userchoice, count);
             stringInit = count.join('');
             document.getElementById("hyphens").innerHTML = stringInit;
-        
+            //If Player Wins
+            if (!count.includes('-')) {
+                initialSetup();
+                cycle = 0;
+                wins++
+                document.getElementById("wins").innerHTML = wins;
+
+            }
+        //Incorrect Guess
         } else {
             guessLeft--
             document.getElementById("guess-counter").innerHTML = guessLeft;
+            //If Player Looses
+            if (guessLeft === 0) {
+                initialSetup();
+                cycle = 0;
+                losses++;
+                document.getElementById("losses").innerHTML = losses;
+            }
         }
     }
-
-    console.log(guessLeft, count)
     return [guessLeft, count]
 }
 

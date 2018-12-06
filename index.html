@@ -2,24 +2,38 @@
 <html>
     <head>
         <title>Word Guess Game</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/reset.css">
         <link rel="stylesheet" href="assets/css/style.css">
     </head>
     <body>
         <header>
-            <img src="" alt="">
+            <h1>Word Guess</h1>
+            <h3 class="subtitle">Guess a Fantasy World!</h3>
             <nav>
                 <a href="">High Scores</a>
             </nav>
         </header>
-        <body>
-            <h2>Press Any Key To Get Started!</h2>
-            <h3>Current Word</h3>
-            <h3 id="hyphens">--------</h3>
-            <h3>Number Of Guesses Remaining: <span id="guess-counter">0</span></h3>
-            <h3>Letters Already Guessed:</h3>
+        <img src="assets/images/unsplash.jpg">
+        <div class="main">
+            <div class="game">
+                <h2 id="changeMe">Press Any Key To Get Started!</h2>
+                <h3 id="hyphens">--------</h3>
+            </div>
+            <div class="scoreboard">
+                <h3>Number Of Guesses Remaining: <span id="guess-counter">0</span></h3>
+                <h3>Letters Already Guessed:</h3>
+            </div>
             <h3 id="guessedLetters">---</h3>
-            <script rel="javascript" src="assets/javascript/game.js"></script>
-        </body>
+            <div class="score">
+                <h3>Wins: <span id="wins"></span></h3>
+                <h3>Losses: <span id="losses"></span></h3>
+            </div>
+        </div>
+        <footer>
+            <p>Photos by Andres Iga on Unsplash</p>
+        </footer>
+
+        <script rel="javascript" src="assets/javascript/game.js"></script>
     </body>
 </html>
